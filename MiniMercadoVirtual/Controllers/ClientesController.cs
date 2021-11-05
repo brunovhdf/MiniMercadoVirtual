@@ -7,34 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MiniMercadoVirtual.Data;
 using MiniMercadoVirtual.Models;
+using MiniMercadoVirtual.Services;
 
 namespace MiniMercadoVirtual.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly MiniMercadoVirtualContext _context;
+        private readonly ClientesService _clientesService;
 
-        public ClientesController(MiniMercadoVirtualContext context)
+        public ClientesController(ClientesService service)
         {
-            _context = context;
+            _clientesService = service;
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Cliente.ToListAsync());
+            return View(_clientesService.BuscarTodos());
         }
 
-        // GET: Clientes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Clientes/Details
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cliente = _clientesService.BuscarPorId(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -50,30 +50,29 @@ namespace MiniMercadoVirtual.Controllers
         }
 
         // POST: Clientes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Senha,DtInclusao,DtAlteracao,Status")] Cliente cliente)
+        public IActionResult Create(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
+                _clientesService.Cadastrar(cliente);
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);
         }
 
-        // GET: Clientes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Clientes/Edit
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente.FindAsync(id);
+            var cliente = _clientesService.BuscarPorId(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -81,12 +80,12 @@ namespace MiniMercadoVirtual.Controllers
             return View(cliente);
         }
 
-        // POST: Clientes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Clientes/Edit
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Senha,DtInclusao,DtAlteracao,Status")] Cliente cliente)
+        public IActionResult Edit(int id, Cliente cliente)
         {
             if (id != cliente.Id)
             {
@@ -95,37 +94,21 @@ namespace MiniMercadoVirtual.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClienteExists(cliente.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _clientesService.Alterar(cliente);
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);
         }
 
-        // GET: Clientes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Clientes/Delete
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cliente = _clientesService.BuscarPorId(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -134,20 +117,14 @@ namespace MiniMercadoVirtual.Controllers
             return View(cliente);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Clientes/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var cliente = await _context.Cliente.FindAsync(id);
-            _context.Cliente.Remove(cliente);
-            await _context.SaveChangesAsync();
+            var cliente = _clientesService.BuscarPorId(id);
+            _clientesService.Remover(cliente);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ClienteExists(int id)
-        {
-            return _context.Cliente.Any(e => e.Id == id);
         }
     }
 }

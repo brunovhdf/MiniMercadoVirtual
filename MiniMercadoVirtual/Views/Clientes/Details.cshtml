@@ -1,49 +1,51 @@
 ﻿@model MiniMercadoVirtual.Models.Cliente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h2>Details</h2>
+<p>
+    <h3>Detalhes</h3>
+</p>
 
 <div>
     <h4>Cliente</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="row">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Senha)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Senha)
         </dd>
-        <dt>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DtInclusao)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DtInclusao)
         </dd>
-        <dt>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DtAlteracao)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DtAlteracao)
         </dd>
-        <dt>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-        <dd>
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
         </dd>
     </dl>
