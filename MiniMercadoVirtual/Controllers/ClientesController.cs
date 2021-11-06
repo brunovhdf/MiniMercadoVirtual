@@ -58,6 +58,7 @@ namespace MiniMercadoVirtual.Controllers
         {
             if (ModelState.IsValid)
             {
+                cliente.DtInclusao = DateTime.Now;
                 _clientesService.Cadastrar(cliente);
                 return RedirectToAction(nameof(Index));
             }
@@ -95,6 +96,7 @@ namespace MiniMercadoVirtual.Controllers
             if (ModelState.IsValid)
             {
 
+                cliente.DtAlteracao = DateTime.Now;
                 _clientesService.Alterar(cliente);
                 return RedirectToAction(nameof(Index));
             }

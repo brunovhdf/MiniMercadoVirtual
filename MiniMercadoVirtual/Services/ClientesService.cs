@@ -22,7 +22,7 @@ namespace MiniMercadoVirtual.Services
         }
         public Cliente BuscarPorId(int id)
         {
-            return _context.Cliente.FirstOrDefault(m => m.Id == id);
+            return _context.Cliente.Include(x => x.Endereco).FirstOrDefault(m => m.Id == id);
         }
         public void Cadastrar(Cliente cliente)
         {
