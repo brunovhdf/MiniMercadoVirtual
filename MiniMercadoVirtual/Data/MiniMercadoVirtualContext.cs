@@ -15,5 +15,7 @@ namespace MiniMercadoVirtual.Data
         }
 
         public DbSet<MiniMercadoVirtual.Models.Cliente> Cliente { get; set; }
+        public DbSet<MiniMercadoVirtual.Models.Endereco> Endereco { get; set; }
+        public DbSet<MiniMercadoVirtual.Models.Produto> Produto { get; set; }
     }
 }

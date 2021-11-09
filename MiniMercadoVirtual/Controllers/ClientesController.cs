@@ -5,19 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MiniMercadoVirtual.Services;
 using MiniMercadoVirtual.Data;
 using MiniMercadoVirtual.Models;
-using MiniMercadoVirtual.Services;
 
 namespace MiniMercadoVirtual.Controllers
 {
     public class ClientesController : Controller
     {
         private readonly ClientesService _clientesService;
+        private readonly EnderecosService _enderecoService;
 
-        public ClientesController(ClientesService service)
+        public ClientesController(ClientesService clientesService,EnderecosService enderecosService)
         {
-            _clientesService = service;
+            _clientesService = clientesService;
+            _enderecoService = enderecosService;
         }
 
         // GET: Clientes
@@ -39,6 +41,8 @@ namespace MiniMercadoVirtual.Controllers
             {
                 return NotFound();
             }
+            var enderecos = _enderecoService.BuscarPorCliente(cliente.Id);
+            cliente.Endereco = enderecos;
 
             return View(cliente);
         }

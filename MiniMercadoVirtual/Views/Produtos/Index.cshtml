@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MiniMercadoVirtual.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+<p>
+    <h3>Produtos</h3>
+</p>
+<p>
+    <a asp-action="Cadastrar" class="btn btn-primary">Novo</a>
+</p>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(Model => Model.Nome)</th>
+                <th>@Html.DisplayNameFor(Model => Model.Descricao)</th>
+                <th>@Html.DisplayNameFor(Model => Model.Preco)</th>
+                <th>@Html.DisplayNameFor(Model => Model.DtInclusao)</th>
+                <th>@Html.DisplayNameFor(Model => Model.DtAlteracao)</th>
+                <th>@Html.DisplayNameFor(Model => Model.Status)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(ModelItem => Item.Nome)</td>
+                    <td>@Html.DisplayFor(ModelItem => Item.Descricao)</td>
+                    <td>@Html.DisplayFor(ModelItem => Item.Preco)</td>
+                    <td>@Html.DisplayFor(ModelItem => Item.DtInclusao)</td>
+                    @if (Item.DtAlteracao == Convert.ToDateTime("01/01/0001 00:00:00"))
+                    {
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td>@Html.DisplayFor(ModelItem => Item.DtAlteracao)</td>
+                    }
+                    <td>@Html.DisplayFor(ModelItem => Item.Status)</td>
+                    <th><a class="btn btn-primary btn-sm" asp-action="Alterar" asp-route-id="@Item.Id">Editar</a> | <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@Item.Id">Excluir</a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MiniMercadoVirtual.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+<p>
+    <h3>Endereços</h3>
+</p>
+<p>
+    <a asp-action="Cadastrar" class="btn btn-primary">Novo</a>
+</p>
+<table class="table col-md-12">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Endereços
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Nome
+                </td>
+                <td>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Cep</th>
+                                <th>Logradouro</th>
+                                <th>Número</th>
+                                <th>Bairro</th>
+                                <th>Cidade</th>
+                                <th>Uf</th>
+                                <th>Complemento</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var endereco in item.Endereco)
+                            {
+                                <tr>
+                                    <td>@endereco.Cep</td>
+                                    <td>@endereco.Logradouro</td>
+                                    <td>@endereco.Numero</td>
+                                    <td>@endereco.Bairro</td>
+                                    <td>@endereco.Cidade</td>
+                                    <td>@endereco.Uf</td>
+                                    <td>@endereco.Complemento</td>
+                                    <td><a class="btn btn-primary btn-sm" asp-action="Alterar" asp-route-id="@endereco.Id">Editar</a> | <a class="btn btn-danger btn-sm" asp-action="Excluir" asp-route-id="@endereco.Id">Excluir</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

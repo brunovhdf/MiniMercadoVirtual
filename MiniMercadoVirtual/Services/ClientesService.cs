@@ -9,20 +9,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MiniMercadoVirtual.Services
 {
-    public class ClientesService
+    public class ClientesServices
     {
         private readonly MiniMercadoVirtualContext _context;
-        public ClientesService(MiniMercadoVirtualContext context)
+        public ClientesServices(MiniMercadoVirtualContext context)
         {
             _context = context;
         }
         public List<Cliente> BuscarTodos()
         {
-            return _context.Cliente.ToList();
+            return _context.Cliente.Include(x => x.Endereco).ToList();
         }
         public Cliente BuscarPorId(int id)
         {
-            return _context.Cliente.Include(x => x.Endereco).FirstOrDefault(m => m.Id == id);
+            return _context.Cliente.FirstOrDefault(m => m.Id == id);
         }
         public void Cadastrar(Cliente cliente)
         {

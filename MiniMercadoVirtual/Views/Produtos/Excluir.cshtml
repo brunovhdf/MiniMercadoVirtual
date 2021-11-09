@@ -1,0 +1,50 @@
+﻿@model MiniMercadoVirtual.Models.Produto
+
+@{
+    ViewData["Title"] = "Excluir";
+}
+
+<p>
+    <h3>Excluir</h3>
+</p>
+<h4>Cliente</h4>
+<h3>Você tem certeza que deseja excluir esse Produto ?</h3>
+<div class="row">
+    <table class="table">
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></td>
+            <td class="col-md-10">@Model.Nome</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Descricao)</strong></td>
+            <td class="col-md-10">@Model.Descricao</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Preco)</strong></td>
+            <td class="col-md-10">@Model.Preco</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.DtInclusao)</strong></td>
+            <td class="col-md-10">@Model.DtInclusao</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.DtAlteracao)</strong></td>
+            @if (Model.DtAlteracao == Convert.ToDateTime("01/01/0001 00:00:00"))
+            {
+                <td class="col-md-10"></td>
+            }
+            else
+            {
+                <td class="col-md-10">@Model.DtAlteracao</td>
+            }
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Status)</strong></td>
+            <td class="col-md-10">@Model.Status</td>
+        </tr>
+    </table>
+    <form asp-action="Deletar">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Confirmar" class="btn btn-danger" /> - <a class="btn btn-primary" asp-action="Index">Lista de Produtos</a>
+    </form>
+</div>
