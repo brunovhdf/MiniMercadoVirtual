@@ -13,9 +13,9 @@ namespace MiniMercadoVirtual.Controllers
     public class EnderecosController : Controller
     {
         private readonly EnderecosService _enderecosService;
-        private readonly ClientesService _clientesSevice;
+        private readonly ClientesServices _clientesSevice;
 
-        public EnderecosController(EnderecosService enderecosService,ClientesService clientesService)
+        public EnderecosController(EnderecosService enderecosService,ClientesServices clientesService)
         {
             _enderecosService = enderecosService;
             _clientesSevice = clientesService;

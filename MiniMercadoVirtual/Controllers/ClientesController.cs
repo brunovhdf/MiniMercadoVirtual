@@ -13,10 +13,10 @@ namespace MiniMercadoVirtual.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly ClientesService _clientesService;
+        private readonly ClientesServices _clientesService;
         private readonly EnderecosService _enderecoService;
 
-        public ClientesController(ClientesService clientesService,EnderecosService enderecosService)
+        public ClientesController(ClientesServices clientesService,EnderecosService enderecosService)
         {
             _clientesService = clientesService;
             _enderecoService = enderecosService;
