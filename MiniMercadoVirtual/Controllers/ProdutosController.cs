@@ -10,7 +10,7 @@ namespace MiniMercadoVirtual.Controllers
 {
     public class ProdutosController : Controller
     {
-        private readonly ProdutosService _produtosService;
+        /*private readonly ProdutosService _produtosService;
         public ProdutosController (ProdutosService produtosService)
         {
             _produtosService = produtosService;
@@ -53,6 +53,6 @@ namespace MiniMercadoVirtual.Controllers
         {
             _produtosService.ExcluirProduto(produto);
             return RedirectToAction(nameof(Index));
-        }
+        }*/
     }
 }

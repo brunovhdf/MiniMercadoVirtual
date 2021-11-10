@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using MiniMercadoVirtual.Domain.Enums;
+using MiniMercadoVirtual.Infra.Models.Enums;
 
-namespace MiniMercadoVirtual.Domain
+namespace MiniMercadoVirtual.Infra.Models
 {
     public class Cliente
     {
@@ -13,6 +13,6 @@ namespace MiniMercadoVirtual.Domain
         public List<Endereco> Endereco { get; set; }
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
-        public StatusCliente Status { get; set; }
+        public  StatusCliente Status { get; set; }
     }
 }

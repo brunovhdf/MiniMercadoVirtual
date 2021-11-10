@@ -12,7 +12,7 @@ namespace MiniMercadoVirtual.Controllers
 {
     public class EnderecosController : Controller
     {
-        private readonly EnderecosService _enderecosService;
+        /*private readonly EnderecosService _enderecosService;
         private readonly ClientesServices _clientesSevice;
 
         public EnderecosController(EnderecosService enderecosService,ClientesServices clientesService)
@@ -71,6 +71,6 @@ namespace MiniMercadoVirtual.Controllers
         {
             _enderecosService.Excluir(endereco);
             return RedirectToAction(nameof(Index));
-        }
+        }*/
     }
 }

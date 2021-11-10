@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MiniMercadoVirtual.Data;
-using MiniMercadoVirtual.Models;
-using MiniMercadoVirtual.Models.ViewModels;
-
-namespace MiniMercadoVirtual.Services
+﻿namespace MiniMercadoVirtual.Services
 {
     public class EnderecosService
-    {
+    {/*
         private readonly MiniMercadoVirtualContext _context;
         public EnderecosService(MiniMercadoVirtualContext context)
         {
@@ -37,6 +29,6 @@ namespace MiniMercadoVirtual.Services
         {
             _context.Remove(endereco);
             _context.SaveChanges();
-        }
+        }*/
     }
 }

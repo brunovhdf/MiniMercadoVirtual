@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MiniMercadoVirtual.Data;
-using MiniMercadoVirtual.Models;
-
-namespace MiniMercadoVirtual.Services
+﻿namespace MiniMercadoVirtual.Services
 {
     public class ProdutosService
     {
-        private readonly MiniMercadoVirtualContext _context;
+        /*private readonly MiniMercadoVirtualContext _context;
         public ProdutosService(MiniMercadoVirtualContext context)
         {
             _context = context;
@@ -36,6 +29,6 @@ namespace MiniMercadoVirtual.Services
         {
             _context.Remove(produto);
             _context.SaveChanges();
-        }
+        }*/
     }
 }

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MiniMercadoVirtual.Data;
 using MiniMercadoVirtual.Services;
 using MiniMercadoVirtual.Services.Implementation;
 using MiniMercadoVirtual.Infra.Repository;
@@ -37,15 +36,10 @@ namespace MiniMercadoVirtual
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddDbContext<MiniMercadoVirtualContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MiniMercadoVirtualContext")));
-            services.AddScoped<ClientesServices>();
-            services.AddSingleton<IClientesService, ClientesService>();
-            services.AddSingleton<IClientesRepository,ClientesRepository>();
-            //services.AddTransient
+            services.AddDbContext<MiniMercadoVirtual.Infra.Repository.Data.MiniMercadoVirtualContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MiniMercadoVirtualContext")));
+            services.AddScoped<IClientesService, ClientesService>();
+            services.AddScoped<IClientesRepository,ClientesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

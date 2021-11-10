@@ -1,4 +1,4 @@
-﻿using MiniMercadoVirtual.Domain;
+﻿using MiniMercadoVirtual.Infra.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
