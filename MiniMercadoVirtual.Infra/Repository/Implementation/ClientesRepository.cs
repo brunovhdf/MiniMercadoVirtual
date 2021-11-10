@@ -17,7 +17,7 @@ namespace MiniMercadoVirtual.Infra.Repository.Implementation
         }
         public List<Cliente> BuscarTodos()
         {
-            return _context.Cliente.ToList();
+            return _context.Cliente.Include(x => x.Endereco).ToList();
         }
         public Cliente BuscarPorId(int id)
         {

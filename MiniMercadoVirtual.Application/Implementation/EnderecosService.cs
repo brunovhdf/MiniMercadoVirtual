@@ -18,5 +18,21 @@ namespace MiniMercadoVirtual.Services.Implementation
         {
             return _ienderecosRepository.BuscarPorCliente(Id);
         }
+        public Endereco BuscarPorId(int Id)
+        {
+            return _ienderecosRepository.BuscarPorId(Id);
+        }
+        public void Criar(Endereco endereco)
+        {
+            _ienderecosRepository.Criar(endereco);
+        }
+        public void Atualizar(Endereco endereco)
+        {
+            _ienderecosRepository.Atualizar(endereco);
+        }
+        public void Excluir(Endereco endereco)
+        {
+            _ienderecosRepository.Excluir(endereco);
+        }
     }
 }

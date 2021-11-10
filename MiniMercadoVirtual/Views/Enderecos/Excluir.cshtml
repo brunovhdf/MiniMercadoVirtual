@@ -8,52 +8,37 @@
 </p>
 <h4>Endereço</h4>
 <h3>Você tem certeza que deseja excluir esse endereço ?</h3>
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cep)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Cep
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Logradouro)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Logradouro
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Numero
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Bairro
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cidade)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Cidade
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Uf)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Uf
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Complemento)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Complemento
-        </dd>
-    </dl>
-
+<div class="row">
+    <table class="table">
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Cep)</strong></td>
+            <td class="col-md-10">@Model.Cep</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Logradouro)</strong></td>
+            <td class="col-md-10">@Model.Logradouro</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Numero)</strong></td>
+            <td class="col-md-10">@Model.Numero</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Bairro)</strong></td>
+            <td class="col-md-10">@Model.Bairro</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Cidade)</strong></td>
+            <td class="col-md-10">@Model.Cidade</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Uf)</strong></td>
+            <td class="col-md-10">@Model.Uf</td>
+        </tr>
+        <tr>
+            <td class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Complemento)</strong></td>
+            <td class="col-md-10">@Model.Complemento</td>
+        </tr>
+    </table>
     <form asp-action="ConfirmarExclusao">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Confirmar" class="btn btn-danger" /> - <a class="btn btn-primary" asp-action="Index">Lista de Endereços</a>

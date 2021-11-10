@@ -13,6 +13,5 @@ namespace MiniMercadoVirtual.Infra.Repository.Data
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Produto> Produto { get; set; }
-        public DbSet<TesteMigration> TesteMigration { get; set; }
     }
 }

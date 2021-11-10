@@ -19,5 +19,24 @@ namespace MiniMercadoVirtual.Infra.Repository.Implementation
         {
             return _context.Endereco.Where(x => x.ClienteId == Id).ToList();
         }
+        public Endereco BuscarPorId(int Id)
+        {
+            return _context.Endereco.Where(x => x.Id == Id).FirstOrDefault();
+        }
+        public void Criar(Endereco endereco)
+        {
+            _context.Add(endereco);
+            _context.SaveChanges();
+        }
+        public void Atualizar(Endereco endereco)
+        {
+            _context.Update(endereco);
+            _context.SaveChanges();
+        }
+        public void Excluir(Endereco endereco)
+        {
+            _context.Remove(endereco);
+            _context.SaveChanges();
+        }
     }
 }

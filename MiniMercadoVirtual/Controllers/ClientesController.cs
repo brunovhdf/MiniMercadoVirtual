@@ -65,6 +65,7 @@ namespace MiniMercadoVirtual.Controllers
                 Cliente.Status = (Models.Enums.StatusCliente)ClienteDomain.Status;
             }
             var EnderecosDomain = _ienderecosService.BuscarPorCliente(Cliente.Id);
+            List<Endereco> enderecos = new List<Endereco>();
             if (EnderecosDomain != null)
             {
                 foreach (var item in EnderecosDomain)
@@ -81,9 +82,10 @@ namespace MiniMercadoVirtual.Controllers
                         Complemento = item.Complemento,
                         ClienteId = item.ClienteId
                     };
-                    Cliente.Endereco.Add(endereco);
+                    enderecos.Add(endereco);
                 }
             }
+            Cliente.Endereco = enderecos;
             return View(Cliente);
         }
 
