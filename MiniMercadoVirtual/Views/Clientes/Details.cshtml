@@ -45,37 +45,44 @@
     </table>
 </div>
 <p><strong>Endereços</strong></p>
-<div>
-    <table class="table col-md-12">
-        <thead>
-            <tr>
-                <th>Cep</th>
-                <th>Logradouro</th>
-                <th>Número</th>
-                <th>Bairro</th>
-                <th>Cidade</th>
-                <th>Uf</th>
-                <th>Complemento</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Endereco)
-            {
+@if (Model.Endereco != null)
+{
+    <div>
+        <table class="table col-md-12">
+            <thead>
                 <tr>
-                    <td>@item.Cep</td>
-                    <td>@item.Logradouro</td>
-                    <td>@item.Numero</td>
-                    <td>@item.Bairro</td>
-                    <td>@item.Cidade</td>
-                    <td>@item.Uf</td>
-                    <td>@item.Complemento</td>
-                    <td><a class="btn btn-primary btn-sm" asp-action="Alterar" asp-controller="Enderecos" asp-route-id="@item.Id">Editar</a></td>
+                    <th>Cep</th>
+                    <th>Logradouro</th>
+                    <th>Número</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Uf</th>
+                    <th>Complemento</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Endereco)
+                {
+                    <tr>
+                        <td>@item.Cep</td>
+                        <td>@item.Logradouro</td>
+                        <td>@item.Numero</td>
+                        <td>@item.Bairro</td>
+                        <td>@item.Cidade</td>
+                        <td>@item.Uf</td>
+                        <td>@item.Complemento</td>
+                        <td><a class="btn btn-primary btn-sm" asp-action="Alterar" asp-controller="Enderecos" asp-route-id="@item.Id">Editar</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>Cliente não possue endereços cadastrados.</p>
+}
 <div>
     <br /><a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> - <a class="btn btn-primary" asp-action="Index">Lista de Clientes</a>
 </div>

@@ -13,21 +13,22 @@ namespace MiniMercadoVirtual.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly IClientesService _iClientesService;
-
-        public ClientesController(IClientesService iclientesService)
+        private readonly IClientesService _iclientesService;
+        private readonly IEnderecosService _ienderecosService;
+        public ClientesController(IClientesService iclientesService, IEnderecosService enderecosService)
         {
-            _iClientesService = iclientesService;
+            _iclientesService = iclientesService;
+            _ienderecosService = enderecosService;
         }
 
         // GET: Clientes
         public IActionResult Index()
         {
-            var ClientesInfra = _iClientesService.BuscarTodos();
+            var ClientesDomain = _iclientesService.BuscarTodos();
             List<Cliente> Clientes = new List<Cliente>();
-            foreach (var item in ClientesInfra)
+            foreach (var item in ClientesDomain)
             {
-                Cliente cliente = new Cliente
+                Cliente Cliente = new Cliente
                 {
                     Id = item.Id,
                     Nome = item.Nome,
@@ -35,114 +36,172 @@ namespace MiniMercadoVirtual.Controllers
                     Senha = item.Senha,
                     Status = (Models.Enums.StatusCliente)item.Status
                 };
-                Clientes.Add(cliente);
+                Clientes.Add(Cliente);
             }
             return View(Clientes);
         }
-        /*      // GET: Clientes/Details
-                public IActionResult Details(int? id)
+
+        // GET: Clientes/Details
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var ClienteDomain = _iclientesService.BuscarPorId(id.Value);
+            Cliente Cliente = new Cliente();
+            if (ClienteDomain == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Cliente.Id = ClienteDomain.Id;
+                Cliente.Nome = ClienteDomain.Nome;
+                Cliente.Email = ClienteDomain.Email;
+                Cliente.Senha = ClienteDomain.Senha;
+                Cliente.DtInclusao = ClienteDomain.DtInclusao;
+                Cliente.DtAlteracao = ClienteDomain.DtAlteracao;
+                Cliente.Status = (Models.Enums.StatusCliente)ClienteDomain.Status;
+            }
+            var EnderecosDomain = _ienderecosService.BuscarPorCliente(Cliente.Id);
+            if (EnderecosDomain != null)
+            {
+                foreach (var item in EnderecosDomain)
                 {
-                    if (id == null)
+                    Endereco endereco = new Endereco
                     {
-                        return NotFound();
-                    }
-
-                    var cliente = _clientesService.BuscarPorId(id.Value);
-                    if (cliente == null)
-                    {
-                        return NotFound();
-                    }
-                    var enderecos = _enderecoService.BuscarPorCliente(cliente.Id);
-                    cliente.Endereco = enderecos;
-
-                    return View(cliente);
+                        Id = item.Id,
+                        Cep = item.Cep,
+                        Logradouro = item.Logradouro,
+                        Numero = item.Numero,
+                        Bairro = item.Bairro,
+                        Cidade = item.Cidade,
+                        Uf = item.Uf,
+                        Complemento = item.Complemento,
+                        ClienteId = item.ClienteId
+                    };
+                    Cliente.Endereco.Add(endereco);
                 }
+            }
+            return View(Cliente);
+        }
 
-                // GET: Clientes/Create
-                public IActionResult Create()
+        // GET: Clientes/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Clientes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Cliente Cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                Domain.Cliente ClienteDomain = new Domain.Cliente
                 {
-                    return View();
-                }
+                    Nome = Cliente.Nome,
+                    Email = Cliente.Email,
+                    Senha = Cliente.Senha,
+                    Status = (Domain.Enums.StatusCliente)Cliente.Status
+                };
+                _iclientesService.Cadastrar(ClienteDomain);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Cliente);
+        }
 
-                // POST: Clientes/Create
-                // To protect from overposting attacks, enable the specific properties you want to bind to.
-                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-                public IActionResult Create(Cliente cliente)
+        // GET: Clientes/Edit
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ClienteDomain = _iclientesService.BuscarPorId(id.Value);
+            if (ClienteDomain == null)
+            {
+                return NotFound();
+            }
+            Cliente Cliente = new Cliente
+            {
+                Id = ClienteDomain.Id,
+                DtInclusao = ClienteDomain.DtInclusao,
+                Nome = ClienteDomain.Nome,
+                Senha = ClienteDomain.Senha,
+                Email = ClienteDomain.Email,
+                Status = (Models.Enums.StatusCliente)ClienteDomain.Status
+            };
+            return View(Cliente);
+        }
+
+
+        // POST: Clientes/Edit
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Cliente Cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                Domain.Cliente ClienteDomain = new Domain.Cliente
                 {
-                    if (ModelState.IsValid)
-                    {
-                        cliente.DtInclusao = DateTime.Now;
-                        _clientesService.Cadastrar(cliente);
-                        return RedirectToAction(nameof(Index));
-                    }
-                    return View(cliente);
-                }
+                    Id = Cliente.Id,
+                    DtInclusao = Cliente.DtInclusao,
+                    Nome = Cliente.Nome,
+                    Email = Cliente.Email,
+                    Senha = Cliente.Senha,
+                    Status = (Domain.Enums.StatusCliente)Cliente.Status
+                };
+                _iclientesService.Alterar(ClienteDomain);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Cliente);
+        }
 
-                // GET: Clientes/Edit
-                public IActionResult Edit(int? id)
-                {
-                    if (id == null)
-                    {
-                        return NotFound();
-                    }
+        // GET: Clientes/Delete
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var clienteDomain = _iclientesService.BuscarPorId(id.Value);
+            if (clienteDomain == null)
+            {
+                return NotFound();
+            }
+            Cliente cliente = new Cliente
+            {
+                Id = clienteDomain.Id,
+                Nome = clienteDomain.Nome,
+                Email = clienteDomain.Email,
+                Senha = clienteDomain.Senha,
+                DtInclusao = clienteDomain.DtInclusao,
+                DtAlteracao = clienteDomain.DtAlteracao,
+                Status = (Models.Enums.StatusCliente)clienteDomain.Status
+            };
+            return View(cliente);
+        }
 
-                    var cliente = _clientesService.BuscarPorId(id.Value);
-                    if (cliente == null)
-                    {
-                        return NotFound();
-                    }
-                    return View(cliente);
-                }
-
-                // POST: Clientes/Edit
-                // To protect from overposting attacks, enable the specific properties you want to bind to.
-                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-                public IActionResult Edit(int id, Cliente cliente)
-                {
-                    if (id != cliente.Id)
-                    {
-                        return NotFound();
-                    }
-
-                    if (ModelState.IsValid)
-                    {
-
-                        cliente.DtAlteracao = DateTime.Now;
-                        _clientesService.Alterar(cliente);
-                        return RedirectToAction(nameof(Index));
-                    }
-                    return View(cliente);
-                }
-
-                // GET: Clientes/Delete
-                public IActionResult Delete(int? id)
-                {
-                    if (id == null)
-                    {
-                        return NotFound();
-                    }
-                    var cliente = _clientesService.BuscarPorId(id.Value);
-                    if (cliente == null)
-                    {
-                        return NotFound();
-                    }
-
-                    return View(cliente);
-                }
-
-                // POST: Clientes/Delete
-                [HttpPost, ActionName("Delete")]
-                [ValidateAntiForgeryToken]
-                public IActionResult DeleteConfirmed(int id)
-                {
-                    var cliente = _clientesService.BuscarPorId(id);
-                    _clientesService.Remover(cliente);
-                    return RedirectToAction(nameof(Index));
-                }
-         */
+        // POST: Clientes/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var cliente = _iclientesService.BuscarPorId(id);
+            if(cliente == null)
+            {
+                return NotFound();
+            }
+            _iclientesService.Remover(cliente);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

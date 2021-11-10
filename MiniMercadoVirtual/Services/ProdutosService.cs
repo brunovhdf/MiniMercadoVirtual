@@ -1,6 +1,6 @@
 ﻿namespace MiniMercadoVirtual.Services
 {
-    public class ProdutosService
+    public class ProdutosServices
     {
         /*private readonly MiniMercadoVirtualContext _context;
         public ProdutosService(MiniMercadoVirtualContext context)

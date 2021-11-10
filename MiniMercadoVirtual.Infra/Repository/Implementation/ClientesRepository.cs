@@ -4,7 +4,7 @@ using System.Text;
 using MiniMercadoVirtual.Infra.Repository.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MiniMercadoVirtual.Infra.Models;
+using MiniMercadoVirtual.Domain;
 
 namespace MiniMercadoVirtual.Infra.Repository.Implementation
 {
@@ -18,6 +18,25 @@ namespace MiniMercadoVirtual.Infra.Repository.Implementation
         public List<Cliente> BuscarTodos()
         {
             return _context.Cliente.ToList();
+        }
+        public Cliente BuscarPorId(int id)
+        {
+            return _context.Cliente.Where(x => x.Id == id).FirstOrDefault();
+        }
+        public void Cadastrar(Cliente cliente)
+        {
+            _context.Add(cliente);
+            _context.SaveChanges();
+        }
+        public void Alterar(Cliente cliente)
+        {
+            _context.Update(cliente);
+            _context.SaveChanges();
+        }
+        public void Remover(Cliente cliente)
+        {
+            _context.Remove(cliente);
+            _context.SaveChanges();
         }
     }
 }

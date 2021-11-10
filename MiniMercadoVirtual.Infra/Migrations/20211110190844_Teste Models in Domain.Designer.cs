@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniMercadoVirtual.Infra.Repository.Data;
 
 namespace MiniMercadoVirtual.Infra.Migrations
 {
     [DbContext(typeof(MiniMercadoVirtualContext))]
-    partial class MiniMercadoVirtualContextModelSnapshot : ModelSnapshot
+    [Migration("20211110190844_Teste Models in Domain")]
+    partial class TesteModelsinDomain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,19 +94,6 @@ namespace MiniMercadoVirtual.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
-                });
-
-            modelBuilder.Entity("MiniMercadoVirtual.Domain.TesteMigration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TesteMigration");
                 });
 
             modelBuilder.Entity("MiniMercadoVirtual.Domain.Endereco", b =>
