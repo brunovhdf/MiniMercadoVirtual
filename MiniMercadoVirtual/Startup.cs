@@ -40,8 +40,10 @@ namespace MiniMercadoVirtual
             services.AddDbContext<MiniMercadoVirtual.Infra.Repository.Data.MiniMercadoVirtualContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MiniMercadoVirtualContext")));
             services.AddScoped<IClientesService, ClientesService>();
             services.AddScoped<IEnderecosService, EnderecosService>();
+            services.AddScoped<IProdutosService, ProdutosService>();
             services.AddScoped<IClientesRepository,ClientesRepository>();
             services.AddScoped<IEnderecosRepository, EnderecosRepository>();
+            services.AddScoped<IProdutosRepository, ProdutosRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
