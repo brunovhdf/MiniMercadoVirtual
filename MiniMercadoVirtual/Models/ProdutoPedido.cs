@@ -1,7 +1,9 @@
 ﻿using System;
-using MiniMercadoVirtual.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MiniMercadoVirtual.Domain
+namespace MiniMercadoVirtual.Models
 {
     public class ProdutoPedido
     {

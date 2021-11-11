@@ -21,5 +21,6 @@ namespace MiniMercadoVirtual.Models
         [Display(Name = "Data de Atualização")]
         public DateTime DtAlteracao { get; set; }
         public  StatusCliente Status { get; set; }
+        public List<Pedido> Pedidos { get; set; }
     }
 }

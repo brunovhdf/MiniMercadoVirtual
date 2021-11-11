@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniMercadoVirtual.Infra.Repository.Data;
 
 namespace MiniMercadoVirtual.Infra.Migrations
 {
     [DbContext(typeof(MiniMercadoVirtualContext))]
-    partial class MiniMercadoVirtualContextModelSnapshot : ModelSnapshot
+    [Migration("20211111165712_Correcao Pedido")]
+    partial class CorrecaoPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,13 +79,13 @@ namespace MiniMercadoVirtual.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClienteId");
+                    b.Property<int?>("ClienteId");
 
                     b.Property<DateTime>("DtAlteracao");
 
                     b.Property<DateTime>("DtInclusao");
 
-                    b.Property<int>("EnderecoId");
+                    b.Property<int?>("EnderecoId");
 
                     b.Property<int>("Status");
 
@@ -92,6 +94,8 @@ namespace MiniMercadoVirtual.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("EnderecoId");
 
                     b.ToTable("Pedido");
                 });
@@ -154,10 +158,13 @@ namespace MiniMercadoVirtual.Infra.Migrations
 
             modelBuilder.Entity("MiniMercadoVirtual.Domain.Pedido", b =>
                 {
-                    b.HasOne("MiniMercadoVirtual.Domain.Cliente")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("MiniMercadoVirtual.Domain.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("MiniMercadoVirtual.Domain.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId");
                 });
 
             modelBuilder.Entity("MiniMercadoVirtual.Domain.ProdutoPedido", b =>

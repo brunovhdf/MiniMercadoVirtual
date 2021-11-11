@@ -1,0 +1,109 @@
+﻿@model IEnumerable<MiniMercadoVirtual.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+<p>
+    <h3>Pedidos</h3>
+</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <table class="table col-md-12">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(Model => Model.Nome)</th>
+                    <th>Endereço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(Item => item.Nome)</td>
+                    <td>
+                        @foreach (var pedido in item.Pedidos)
+                        {
+                            @foreach (var endereco in item.Endereco)
+                            {
+                                if (pedido.EnderecoId == endereco.Id)
+                                {
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cep</th>
+                                                <th>Logradouro</th>
+                                                <th>Número</th>
+                                                <th>Bairro</th>
+                                                <th>Cidade</th>
+                                                <th>Uf</th>
+                                                <th>Complemento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>@endereco.Cep</td>
+                                                <td>@endereco.Logradouro</td>
+                                                <td>@endereco.Cep</td>
+                                                <td>@endereco.Numero</td>
+                                                <td>@endereco.Cidade</td>
+                                                <td>@endereco.Uf</td>
+                                                <td>@endereco.Complemento</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                }
+                            }
+                            <p><strong>Pedido</strong></p>
+                            <p><strong>Itens</strong></p>
+                            foreach (var produto in pedido.ProdutoPedido)
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nome</th>
+                                            <th>Descrição</th>
+                                            <th>Preço</th>
+                                            <th>Quantidade</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@produto.Id</td>
+                                            <td>@produto.Nome</td>
+                                            <td>@produto.Descricao</td>
+                                            <td>@produto.Preco</td>
+                                            <td>@produto.Quantidade</td>
+                                            <td>@produto.ValorTotal</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Inclusao</th>
+                                        <th>Alteracao</th>
+                                        <th>Valor</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@pedido.Id</td>
+                                        <td>@pedido.DtInclusao</td>
+                                        <td>@pedido.DtAlteracao</td>
+                                        <td>@pedido.ValorTotal</td>
+                                        <td>@pedido.Status</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    }
+</div>

@@ -14,5 +14,6 @@ namespace MiniMercadoVirtual.Domain
         public DateTime DtInclusao { get; set; }
         public DateTime DtAlteracao { get; set; }
         public StatusCliente Status { get; set; }
+        public List<Pedido> Pedidos { get; set; }
     }
 }

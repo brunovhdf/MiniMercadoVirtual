@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using MiniMercadoVirtual.Domain.Enums;
+using System.Linq;
+using System.Threading.Tasks;
+using MiniMercadoVirtual.Models.Enums;
 
-namespace MiniMercadoVirtual.Domain
+namespace MiniMercadoVirtual.Models
 {
     public class Pedido
     {
