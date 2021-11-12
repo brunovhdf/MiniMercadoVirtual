@@ -17,13 +17,12 @@ namespace MiniMercadoVirtual.Infra.Repository.Implementation
         }
         public List<Cliente> BuscarTodos()
         {
-            List<Cliente> clientes = _context.Cliente.Include(x => x.Pedidos).Where(x => x.Pedidos.Count > 0).Include(x => x.Endereco).ToList();
-            foreach(var cli in clientes)
+            List<Cliente> clientes = _context.Cliente.Include(cliente => cliente.Pedidos).Where(pedidos => pedidos.Pedidos.Count > 0).ThenInclude(pedidos => pedidos.ProdutoPedido).Include(x => x.Endereco).ToList();
+            foreach (var cli in clientes)
             {
                 foreach(var ped in cli.Pedidos)
                 {
-                    var id = ped.Id;
-                    ped.ProdutoPedido = _context.ProdutoPedido.Where(x => x.PedidoId == id).ToList();
+                    ped.ProdutoPedido = _context.ProdutoPedido.Where(x => x.PedidoId == ped.Id).ToList();
                 }
             }
             return clientes;
@@ -32,7 +31,8 @@ namespace MiniMercadoVirtual.Infra.Repository.Implementation
         {
             return _context.Pedido.Where(x => x.Id == id).FirstOrDefault();
         }
-/*        public void Cadastrar(Produto produto)
+/*        
+        public void Cadastrar(Produto produto)
         {
             _context.Add(produto);
             _context.SaveChanges();
